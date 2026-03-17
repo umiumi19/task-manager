@@ -1,6 +1,7 @@
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from '@hono/zod-openapi';
 import { todos } from '../../db/schema';
+import coerceDate from '../../utils/coerce_date';
 
 export const selectTodosSchema = createSelectSchema(todos).openapi(
   'selectTodosSchema',
@@ -20,11 +21,8 @@ export const selectTodosSchema = createSelectSchema(todos).openapi(
   },
 );
 
-const dateOrString = z.union([
-  z.string().datetime().transform((s) => new Date(s)),
-  z.date(),
-  z.null(),
-]);
+/** optional かつ null 許容（PATCH で締切をクリアする場合） */
+const optionalDate = z.union([coerceDate(), z.null()]).optional();
 
 export const insertTodosSchema = createInsertSchema(todos)
   .pick({
@@ -38,7 +36,7 @@ export const insertTodosSchema = createInsertSchema(todos)
     title: true,
   })
   .extend({
-    dueAt: dateOrString.optional(),
+    dueAt: optionalDate,
   })
   .refine((data) => data.priority === undefined || (data.priority >= 1 && data.priority <= 3), {
     message: 'priority must be between 1 and 3',
@@ -75,7 +73,7 @@ export const updateTodosSchema = createInsertSchema(todos)
   })
   .partial()
   .extend({
-    dueAt: z.union([z.string().datetime().transform((s) => new Date(s)), z.date(), z.null()]).optional(),
+    dueAt: optionalDate,
   })
   .refine((data) => data.priority === undefined || (data.priority >= 1 && data.priority <= 3), {
     message: 'priority must be between 1 and 3',

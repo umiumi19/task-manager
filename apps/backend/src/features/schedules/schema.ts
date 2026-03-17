@@ -1,6 +1,7 @@
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from '@hono/zod-openapi';
 import { schedules } from '../../db/schema';
+import coerceDate from '../../utils/coerce_date';
 
 export const selectSchedulesSchema = createSelectSchema(schedules).openapi(
   'selectSchedulesSchema',
@@ -20,15 +21,8 @@ export const selectSchedulesSchema = createSelectSchema(schedules).openapi(
   },
 );
 
-const dateOrString = z.union([
-  z.string().datetime().transform((s) => new Date(s)),
-  z.date(),
-  z.null(),
-]);
-const dateOrStringRequired = z.union([
-  z.string().datetime().transform((s) => new Date(s)),
-  z.date(),
-]);
+/** optional かつ null 許容（終了日時をクリアする場合） */
+const optionalDate = z.union([coerceDate(), z.null()]).optional();
 
 export const insertSchedulesSchema = createInsertSchema(schedules)
   .pick({
@@ -44,8 +38,8 @@ export const insertSchedulesSchema = createInsertSchema(schedules)
     startAt: true,
   })
   .extend({
-    startAt: dateOrStringRequired,
-    endAt: dateOrString.optional(),
+    startAt: coerceDate(),
+    endAt: optionalDate,
   })
   .openapi('insertSchedulesSchema', {
     example: {
@@ -69,10 +63,8 @@ export const updateSchedulesSchema = createInsertSchema(schedules)
   })
   .partial()
   .extend({
-    startAt: z
-      .union([z.string().datetime().transform((s) => new Date(s)), z.date()])
-      .optional(),
-    endAt: dateOrString.optional(),
+    startAt: coerceDate().optional(),
+    endAt: optionalDate,
   })
   .openapi('updateSchedulesSchema', {
     example: {
