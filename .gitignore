@@ -55,6 +55,7 @@ node_modules/
 
 # Backend build
 dist/
+*.tsbuildinfo
 
 # FVM (Flutter Version Management) – keep .fvmrc, ignore SDK/cache
 .fvm/
@@ -62,3 +63,7 @@ dist/
 # Supabase CLI (local branch state and temp/cache)
 **/supabase/.branches/
 **/supabase/.temp/
+
+# Test / tooling
+coverage/
+.turbo
