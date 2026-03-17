@@ -1,6 +1,26 @@
 # task_manager
 
-A new Flutter project.
+モノレポ: バックエンド（Node/Postgres）とモバイル（Flutter）でタスク・予定を管理するアプリ。
+
+## 環境変数（.env の置き場所）
+
+**.env はアプリごとに分けて置く。**
+
+| 場所 | 用途 |
+|------|------|
+| `apps/backend/.env` | バックエンド用（DATABASE_URL, SUPABASE_URL, SUPABASE_ANON_KEY など） |
+| `apps/mobile/.env` | モバイル用（SUPABASE_URL, SUPABASE_ANON_KEY） |
+
+- ルートには共通の .env を置かない。
+- 各アプリで `.env.example` をコピーして `.env` を作成し、値を埋める。
+
+```bash
+# バックエンド
+cp apps/backend/.env.example apps/backend/.env
+
+# モバイル
+cp apps/mobile/.env.example apps/mobile/.env
+```
 
 ## Getting Started
 
