@@ -12,8 +12,6 @@ import '../../../../common/widgets/custom_app_bar.dart';
 import '../../../../common/widgets/custom_floating_action_button.dart';
 import '../../../../common/widgets/form_widget_with_title.dart';
 import '../../../../common/widgets/see_all_button.dart';
-// 仮: IconDropdown を使う場合は import して _AppBar の PopupMenuButton を差し替える
-// import '../../../../common/widgets/icon_dropdown.dart';
 import '../../../../router/route_names.dart';
 import '../../../schedules/application/schedules_providers.dart';
 import '../../../schedules/domain/schedule.dart';
