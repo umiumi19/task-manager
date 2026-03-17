@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug dev (Android)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "cwd": "apps/mobile",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define=apiBaseUrl=http://10.0.2.2:9999"
+      ]
+    },
+    {
+      "name": "Debug dev (iOS)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "cwd": "apps/mobile",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define=apiBaseUrl=http://localhost:9999"
+      ]
+    }
+  ]
+}
