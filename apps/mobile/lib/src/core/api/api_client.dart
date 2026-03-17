@@ -12,7 +12,10 @@ Dio createApiDio(AuthRepository authRepository) {
       baseUrl: apiBaseUrl,
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     ),
   );
   dio.interceptors.add(
@@ -23,13 +26,19 @@ Dio createApiDio(AuthRepository authRepository) {
           options.headers['Authorization'] = 'Bearer $token';
           debugPrint('[API] Request with Bearer token: ${options.uri}');
         } else {
-          debugPrint('[API] Request WITHOUT token (session may not be restored yet): ${options.uri}');
+          debugPrint(
+            '[API] Request WITHOUT token (session may not be restored yet): ${options.uri}',
+          );
         }
         return handler.next(options);
       },
       onError: (error, handler) {
-        debugPrint('[API Error] ${error.requestOptions.method} ${error.requestOptions.uri}');
-        debugPrint('[API Error] status: ${error.response?.statusCode} message: ${error.message}');
+        debugPrint(
+          '[API Error] ${error.requestOptions.method} ${error.requestOptions.uri}',
+        );
+        debugPrint(
+          '[API Error] status: ${error.response?.statusCode} message: ${error.message}',
+        );
         if (error.response?.data != null) {
           debugPrint('[API Error] body: ${error.response?.data}');
         }

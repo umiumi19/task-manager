@@ -34,10 +34,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-        kToolbarHeight +
-            (bottom?.preferredSize.height ?? 0) +
-            (bottom != null ? AppSizes.p8 : 0),
-      );
+    kToolbarHeight +
+        (bottom?.preferredSize.height ?? 0) +
+        (bottom != null ? AppSizes.p8 : 0),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   if (leading != null) leading!,
                   if (hasBackButton)
                     IconButton(
-                      icon: Icon(Icons.arrow_back, color: context.appColors.subtleText),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: context.appColors.subtleText,
+                      ),
                       onPressed: isLoading
                           ? null
                           : onBackButtonPressed ?? () => context.pop(),
