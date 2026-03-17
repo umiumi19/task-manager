@@ -43,7 +43,8 @@ class TodoListTileState {
   int get hashCode => todoId.hashCode;
 }
 
-class TodoListTileNotifier extends AutoDisposeFamilyNotifier<TodoListTileState, TodoListTileState> {
+class TodoListTileNotifier
+    extends AutoDisposeFamilyNotifier<TodoListTileState, TodoListTileState> {
   @override
   TodoListTileState build(TodoListTileState arg) => arg;
 
@@ -51,10 +52,9 @@ class TodoListTileNotifier extends AutoDisposeFamilyNotifier<TodoListTileState, 
   Future<bool> toggleIsDone() async {
     state = state.copyWith(asyncValue: const AsyncLoading());
     final result = await AsyncValue.guard(
-      () => ref.read(todosRepositoryProvider).update(
-            state.todoId,
-            isDone: !state.isDone,
-          ),
+      () => ref
+          .read(todosRepositoryProvider)
+          .update(state.todoId, isDone: !state.isDone),
     );
     if (result.hasError) {
       state = state.copyWith(asyncValue: result);
@@ -68,7 +68,7 @@ class TodoListTileNotifier extends AutoDisposeFamilyNotifier<TodoListTileState, 
   }
 }
 
-final todoListTileControllerProvider =
-    NotifierProvider.autoDispose.family<TodoListTileNotifier, TodoListTileState, TodoListTileState>(
-  TodoListTileNotifier.new,
-);
+final todoListTileControllerProvider = NotifierProvider.autoDispose
+    .family<TodoListTileNotifier, TodoListTileState, TodoListTileState>(
+      TodoListTileNotifier.new,
+    );

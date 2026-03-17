@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/constants/app_sizes.dart';
-import '../../../../common/widgets/custom_app_bar.dart';
-import '../../../../router/route_names.dart';
-import '../../application/schedules_providers.dart';
-import '../../domain/schedule.dart';
-import '../schedule_list_tile/schedule_list_tile.dart';
+import '../../../../../common/constants/app_sizes.dart';
+import '../../../../../common/widgets/custom_app_bar.dart';
+import '../../../../../router/route_names.dart';
+import '../../../application/schedules_providers.dart';
+import '../../../domain/schedule.dart';
+import '../../schedule_list_tile/schedule_list_tile.dart';
 
 class ScheduleListPage extends ConsumerWidget {
   const ScheduleListPage({super.key});
@@ -39,8 +39,8 @@ class ScheduleListPage extends ConsumerWidget {
                   Text(
                     '右下の＋から追加してください。',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -67,16 +67,12 @@ class ScheduleListPage extends ConsumerWidget {
             ),
           );
         },
-        loading: () =>
-            const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, stack) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '読み込みに失敗しました',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              Text('読み込みに失敗しました', style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: 16),
               FilledButton.tonal(
                 onPressed: () => ref.invalidate(scheduleListProvider),
@@ -101,7 +97,10 @@ class ScheduleListPage extends ConsumerWidget {
   }
 
   Future<void> _openEdit(
-      BuildContext context, Schedule schedule, WidgetRef ref) async {
+    BuildContext context,
+    Schedule schedule,
+    WidgetRef ref,
+  ) async {
     await context.push<bool>(
       '${RouteNames.scheduleList}/${schedule.id}',
       extra: schedule,

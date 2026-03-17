@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:task_manager/src/features/schedules/domain/schedule.dart';
+import '../domain/schedule.dart';
 
 class SchedulesRepository {
   SchedulesRepository(this._dio);
