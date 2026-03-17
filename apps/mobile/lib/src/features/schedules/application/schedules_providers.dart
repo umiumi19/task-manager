@@ -10,22 +10,23 @@ final schedulesRepositoryProvider = Provider<SchedulesRepository>((ref) {
 });
 
 /// 予定一覧取得。
-final scheduleListProvider =
-    FutureProvider.autoDispose<List<Schedule>>((ref) async {
+final scheduleListProvider = FutureProvider.autoDispose<List<Schedule>>((
+  ref,
+) async {
   final repo = ref.watch(schedulesRepositoryProvider);
   return repo.list();
 });
 
 /// 今日の予定（startAt が今日のもの）。
-final todaySchedulesProvider =
-    FutureProvider.autoDispose<List<Schedule>>((ref) async {
+final todaySchedulesProvider = FutureProvider.autoDispose<List<Schedule>>((
+  ref,
+) async {
   final list = await ref.watch(scheduleListProvider.future);
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   final tomorrow = today.add(const Duration(days: 1));
   return list
-      .where((s) =>
-          !s.startAt.isBefore(today) && s.startAt.isBefore(tomorrow))
+      .where((s) => !s.startAt.isBefore(today) && s.startAt.isBefore(tomorrow))
       .toList()
     ..sort((a, b) => a.startAt.compareTo(b.startAt));
 });

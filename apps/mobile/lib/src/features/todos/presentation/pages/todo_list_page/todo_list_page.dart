@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../common/constants/app_sizes.dart';
-import '../../../../common/widgets/custom_app_bar.dart';
-import '../../../../router/route_names.dart';
-import '../../application/todos_providers.dart';
-import '../../domain/todo.dart';
-import '../todo_list_tile/todo_list_tile.dart';
+import '../../../../../common/constants/app_sizes.dart';
+import '../../../../../common/widgets/custom_app_bar.dart';
+import '../../../../../common/widgets/custom_floating_action_button.dart';
+import '../../../../../router/route_names.dart';
+import '../../../application/todos_providers.dart';
+import '../../../domain/todo.dart';
+import '../../todo_list_tile/todo_list_tile.dart';
 
 class TodoListPage extends ConsumerStatefulWidget {
   const TodoListPage({super.key});
@@ -41,7 +42,11 @@ class _TodoListPageState extends ConsumerState<TodoListPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.check_circle_outline, size: 64, color: Theme.of(context).colorScheme.outline),
+                  Icon(
+                    Icons.check_circle_outline,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     _includeDone ? '該当するタスクはありません' : '未完了のタスクはありません',
@@ -53,8 +58,8 @@ class _TodoListPageState extends ConsumerState<TodoListPage> {
                         ? '「未完了」をタップしてください。'
                         : '「完了済み」をタップするか、右下の＋で追加してください。',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -62,7 +67,8 @@ class _TodoListPageState extends ConsumerState<TodoListPage> {
             );
           }
           return RefreshIndicator(
-            onRefresh: () async => ref.invalidate(todoListProvider(_includeDone)),
+            onRefresh: () async =>
+                ref.invalidate(todoListProvider(_includeDone)),
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSizes.p16,
@@ -97,9 +103,10 @@ class _TodoListPageState extends ConsumerState<TodoListPage> {
       ),
       floatingActionButton: _includeDone
           ? null
-          : FloatingActionButton(
+          : CustomFloatingActionButton(
+              heroTag: 'todo_list_fab',
               onPressed: () => _openAdd(context),
-              child: const Icon(Icons.add),
+              icon: Icons.add,
             ),
     );
   }
@@ -112,7 +119,10 @@ class _TodoListPageState extends ConsumerState<TodoListPage> {
   }
 
   Future<void> _openEdit(BuildContext context, Todo todo) async {
-    final result = await context.push<bool>('${RouteNames.todoList}/${todo.id}', extra: todo);
+    final result = await context.push<bool>(
+      '${RouteNames.todoList}/${todo.id}',
+      extra: todo,
+    );
     if (context.mounted && result == true) {
       ref.invalidate(todoListProvider(_includeDone));
     }

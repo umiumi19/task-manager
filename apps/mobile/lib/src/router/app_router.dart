@@ -7,13 +7,11 @@ import '../features/auth/presentation/pages/login_page.dart';
 import '../features/auth/presentation/pages/sign_up_page.dart';
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/schedules/domain/schedule.dart';
-import '../features/schedules/presentation/pages/add_schedule_page.dart';
-import '../features/schedules/presentation/pages/edit_schedule_page.dart';
-import '../features/schedules/presentation/pages/schedule_list_page.dart';
+import '../features/schedules/presentation/pages/edit_schedule_page/edit_schedule_page.dart';
+import '../features/schedules/presentation/pages/schedule_list_page/schedule_list_page.dart';
 import '../features/todos/domain/todo.dart';
-import '../features/todos/presentation/pages/add_todo_page.dart';
-import '../features/todos/presentation/pages/edit_todo_page.dart';
-import '../features/todos/presentation/pages/todo_list_page.dart';
+import '../features/todos/presentation/pages/edit_todo_page/edit_todo_page.dart';
+import '../features/todos/presentation/pages/todo_list_page/todo_list_page.dart';
 import 'main_tab_scaffold.dart';
 import 'route_names.dart';
 
@@ -65,7 +63,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   ),
                   GoRoute(
                     path: 'schedules/add',
-                    builder: (context, state) => const AddSchedulePage(),
+                    builder: (context, state) => const EditSchedulePage(),
                   ),
                   GoRoute(
                     path: 'schedules/:id',
@@ -91,7 +89,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(
                     path: 'add',
-                    builder: (context, state) => const AddTodoPage(),
+                    builder: (context, state) => const EditTodoPage(),
                   ),
                   GoRoute(
                     path: ':id',

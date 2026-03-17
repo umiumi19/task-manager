@@ -23,6 +23,7 @@ class TodoListTile extends ConsumerWidget {
 
   final Todo todo;
   final VoidCallback onTap;
+
   /// true のときチェックボックスを表示し、タイル用 controller で完了トグル（一覧は invalidate しない）
   final bool showCheckbox;
   final BorderRadiusGeometry borderRadius;
@@ -42,16 +43,25 @@ class TodoListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (!showCheckbox) {
-      return _buildTile(context, isDone: todo.isDone, onCheckTap: null, isLoading: false);
+      return _buildTile(
+        context,
+        isDone: todo.isDone,
+        onCheckTap: null,
+        isLoading: false,
+      );
     }
     final initialState = TodoListTileState.fromTodo(todo);
     final isDone = ref.watch(
       todoListTileControllerProvider(initialState).select((s) => s.isDone),
     );
     final isLoading = ref.watch(
-      todoListTileControllerProvider(initialState).select((s) => s.asyncValue.isLoading),
+      todoListTileControllerProvider(
+        initialState,
+      ).select((s) => s.asyncValue.isLoading),
     );
-    final notifier = ref.read(todoListTileControllerProvider(initialState).notifier);
+    final notifier = ref.read(
+      todoListTileControllerProvider(initialState).notifier,
+    );
 
     return _buildTile(
       context,
@@ -74,7 +84,8 @@ class TodoListTile extends ConsumerWidget {
     final dueLabel = todo.dueAt != null
         ? dateFormat.format(todo.dueAt!)
         : '未設定';
-    final dueColor = todo.dueAt != null &&
+    final dueColor =
+        todo.dueAt != null &&
             todo.dueAt!.isBefore(DateTime.now().add(const Duration(days: 1))) &&
             !isDone
         ? context.appColors.pointOrange
@@ -106,7 +117,9 @@ class TodoListTile extends ConsumerWidget {
                           ),
                         )
                       : Icon(
-                          isDone ? Icons.check_circle : Icons.check_circle_outline,
+                          isDone
+                              ? Icons.check_circle
+                              : Icons.check_circle_outline,
                           color: isDone
                               ? context.appColors.primary
                               : context.appColors.subtleText,
@@ -116,7 +129,12 @@ class TodoListTile extends ConsumerWidget {
               ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, AppSizes.p12, AppSizes.p16, AppSizes.p12),
+                padding: const EdgeInsets.fromLTRB(
+                  0,
+                  AppSizes.p12,
+                  AppSizes.p16,
+                  AppSizes.p12,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -181,8 +199,9 @@ class _DisplayNote extends StatelessWidget {
         Expanded(
           child: Text(
             _formatFirstLineWithTruncate(text),
-            style: context.textStyles.labelSmallRegular
-                .withSubtleTextColor(context),
+            style: context.textStyles.labelSmallRegular.withSubtleTextColor(
+              context,
+            ),
             maxLines: 1,
             overflow: TextOverflow.visible,
           ),

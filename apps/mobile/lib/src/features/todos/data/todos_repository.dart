@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:task_manager/src/features/todos/domain/todo.dart';
+import '../domain/todo.dart';
 
 class TodosRepository {
   TodosRepository(this._dio);
@@ -29,7 +29,7 @@ class TodosRepository {
     final body = <String, dynamic>{
       'title': title,
       if (memo != null) 'memo': memo,
-      if (dueAt != null) 'dueAt': dueAt.toIso8601String(),
+      if (dueAt != null) 'dueAt': dueAt.toUtc().toIso8601String(),
       if (priority != null) 'priority': priority,
       if (estimatedMinutes != null) 'estimatedMinutes': estimatedMinutes,
     };
@@ -50,7 +50,7 @@ class TodosRepository {
     final body = <String, dynamic>{
       if (title != null) 'title': title,
       if (memo != null) 'memo': memo,
-      if (dueAt != null) 'dueAt': dueAt.toIso8601String(),
+      if (dueAt != null) 'dueAt': dueAt.toUtc().toIso8601String(),
       if (isDone != null) 'isDone': isDone,
       if (priority != null) 'priority': priority,
       if (estimatedMinutes != null) 'estimatedMinutes': estimatedMinutes,

@@ -1,0 +1,6 @@
+# Disable edge runtime to avoid Deno import failures (deno.land/std 500) when
+# starting locally. Re-enable if you add Edge Functions and fix network/Deno access.
+# See: https://github.com/supabase/cli/issues/3343
+
+[edge_runtime]
+enabled = false

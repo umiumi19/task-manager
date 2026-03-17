@@ -21,6 +21,7 @@ class ScheduleListTile extends StatelessWidget {
   final Schedule schedule;
   final VoidCallback onTap;
   final BorderRadiusGeometry borderRadius;
+
   /// true のとき日付（yyyy年M月d日(E)）を時刻の前に表示。一覧画面用。
   final bool showDate;
 
@@ -95,8 +96,9 @@ class _DisplayTime extends StatelessWidget {
 
     return Text(
       text,
-      style: context.textStyles.labelMediumSemibold
-          .withPrimaryTextColor(context),
+      style: context.textStyles.labelMediumSemibold.withPrimaryTextColor(
+        context,
+      ),
     );
   }
 }
@@ -145,8 +147,9 @@ class _DisplayNote extends StatelessWidget {
         Expanded(
           child: Text(
             _formatFirstLineWithTruncate(schedule.memo ?? ''),
-            style: context.textStyles.labelSmallRegular
-                .withSubtleTextColor(context),
+            style: context.textStyles.labelSmallRegular.withSubtleTextColor(
+              context,
+            ),
             maxLines: 1,
             overflow: TextOverflow.visible,
           ),
