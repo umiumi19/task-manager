@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Flutter Build Runner",
+      "type": "shell",
+      "command": "fvm dart run build_runner build --delete-conflicting-outputs && fvm dart format . && fvm dart fix --apply",
+      "group": "build",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/apps/mobile"
+      }
+    },
+    {
+      "label": "Update OpenAPI",
+      "type": "shell",
+      "command": "rm -rf ./openapi/client && openapi-generator generate -i openapi/openapi.json -g dart-dio -o ./openapi/client --type-mappings=date=String,Date=String,DateTime=String && cd ./openapi/client && fvm dart run build_runner build --delete-conflicting-outputs && fvm dart format . && fvm dart fix --apply",
+      "group": "build",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/apps/mobile"
+      }
+    },
+    {
+      "label": "Build iOS for stg",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "fvm flutter clean && fvm flutter pub get && fvm flutter build ios --release --dart-define-from-file=dart_defines/stg.env && fvm flutter build ios --release --dart-define-from-file=dart_defines/stg.env"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}/apps/mobile"
+      }
+    }
+  ]
+}
