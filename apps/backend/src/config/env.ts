@@ -10,7 +10,7 @@ export const env = {
   NODE_ENV: process.env.NODE_ENV ?? 'development',
   PORT: Number(
     process.env.PORT ??
-      (process.env.NODE_ENV === 'development' ? 9999 : 8787),
+    (process.env.NODE_ENV === 'development' ? 9999 : 8787),
   ),
   DATABASE_URL: getRequiredEnv('DATABASE_URL'),
   SUPABASE_URL: getRequiredEnv('SUPABASE_URL'),
