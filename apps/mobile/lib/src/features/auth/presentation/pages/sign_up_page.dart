@@ -142,7 +142,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     const SizedBox(height: 16),
                     Text(
                       _errorMessage!,
-                      style: TextStyle(color: Theme.of(context).colorScheme.error),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                     ),
                   ],
                   if (_successMessage != null) ...[
@@ -150,8 +152,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     Text(
                       _successMessage!,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ],
                   const SizedBox(height: 24),

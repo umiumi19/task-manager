@@ -24,7 +24,9 @@ final usersRepositoryProvider = Provider<UsersRepository>((ref) {
 });
 
 /// 認証中ユーザーの public.users を取得。未ログインなら null。
-final currentAppUserProvider = FutureProvider.autoDispose<AppUser?>((ref) async {
+final currentAppUserProvider = FutureProvider.autoDispose<AppUser?>((
+  ref,
+) async {
   final authUser = ref.watch(currentUserProvider);
   if (authUser == null) return null;
   try {
