@@ -1,11 +1,10 @@
 # Task Manager
 
 **タスクと予定を一括管理するモバイルアプリ**です。  
-就職活動用のポートフォリオとして、**フロント（Flutter）・バックエンド（API）・認証・DB** を一通り扱えることを示すために制作しました。
 
 ---
 
-## このリポジトリで示していること
+## このリポジトリの特徴
 
 - **フルスタック** … モノレポで Backend（Node/TypeScript）と Mobile（Flutter）を同一リポジトリで管理
 - **API 設計** … RESTful API、OpenAPI（Scalar）による API ドキュメント、Zod によるバリデーション
@@ -94,8 +93,6 @@ cd apps/mobile
 flutter pub get
 flutter run
 ```
-
-DB のマイグレーションや認証の詳細は **`apps/backend/docs/`** 内の STEP ドキュメントを参照してください。
 
 ---
 
